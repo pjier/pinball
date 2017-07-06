@@ -19,7 +19,7 @@ def read_data(filename):
                 data.append(item['data'])
                 labels.append(item['label'])
                 label_dict[item['label']] += 1
-        print "Imported dataset with this distribution"
+        print "Imported dataset with this distribution - ", len(data), "characters in total."
         for key in sorted(label_dict):
             print key, label_dict[key]
         return np.array(data), labels
@@ -55,6 +55,15 @@ def train_model(datafile):
 
     # Do prediction on test data
     predicted_labels = clf.predict(test_data)
+    
+    # Log the report to terminal.
+    # Example for character 'H'
+    #  * precision - how many of the characters the model classified as 'H'
+    #     was actually the character 'H'
+    #  * recall - how many of the characters 'H' in the test set did the
+    #     model manage to correctl classify as 'H'
+    #  * support - number of actual occurences of 'H' in the test set
+    #  * f1-score - google it!
     print "ACTUAL   ", le.inverse_transform(test_labels)
     print "PREDICTED", le.inverse_transform(predicted_labels)
     print "Classification report"
